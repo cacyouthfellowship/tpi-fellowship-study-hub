@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Past Questions | CACYOF TPI Study Hub</title>
+<link rel="manifest" href="manifest.json"/>
+<meta name="theme-color" content="#0A1628"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0A1628;
+  --navy2:#0D1B35;
+  --navy3:#152040;
+  --sky:#1B9BD1;
+  --sky2:#2AAEE8;
+  --sky-glow:rgba(27,155,209,0.12);
+  --gold:#D4A017;
+  --gold2:#E8B820;
+  --white:#FFFFFF;
+  --grey:#8A9BB5;
+  --grey2:#B0BFD4;
+  --card:rgba(255,255,255,0.03);
+  --card-border:rgba(27,155,209,0.18);
+}
+html{scroll-behavior:smooth}
+body{background:var(--navy);color:var(--white);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden;min-height:100vh}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--navy2)}
+::-webkit-scrollbar-thumb{background:var(--sky);border-radius:3px}
+
+/* NAV */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,22,40,0.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--card-border);height:68px;padding:0 5%;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{width:44px;height:44px;border-radius:50%;overflow:hidden;border:2px solid var(--sky);flex-shrink:0}
+.nav-logo img{width:100%;height:100%;object-fit:cover}
+.nav-brand{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:var(--white);margin-left:12px}
+.nav-left{display:flex;align-items:center;gap:0}
+.nav-back{background:none;border:none;color:var(--sky);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;transition:background 0.2s}
+.nav-back:hover{background:var(--sky-glow)}
+
+/* HERO */
+.page-hero{padding:100px 5% 40px;background:linear-gradient(135deg,rgba(27,155,209,0.08) 0%,transparent 70%);border-bottom:1px solid var(--card-border)}
+.page-hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,4vw,38px);font-weight:800;color:var(--white);margin-bottom:8px}
+.page-hero p{font-size:14px;color:var(--grey);max-width:500px}
+
+/* SEARCH BAR */
+.search-wrap{padding:28px 5% 0;max-width:700px}
+.search-box{position:relative}
+.search-box input{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--card-border);border-radius:12px;padding:14px 20px 14px 48px;color:var(--white);font-size:15px;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s,background 0.2s}
+.search-box input:focus{border-color:var(--sky);background:rgba(27,155,209,0.06)}
+.search-box input::placeholder{color:var(--grey)}
+.search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--grey);pointer-events:none}
+.search-clear{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--grey);cursor:pointer;font-size:18px;display:none;line-height:1}
+.search-clear.show{display:block}
+
+/* BREADCRUMB */
+.breadcrumb{padding:20px 5% 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.crumb{font-size:13px;color:var(--grey);cursor:pointer;transition:color 0.2s}
+.crumb:hover{color:var(--sky)}
+.crumb.active{color:var(--white);font-weight:600;cursor:default}
+.crumb-sep{color:var(--grey);font-size:12px}
+
+/* MAIN CONTENT */
+.content{padding:28px 5% 80px}
+
+/* GRID VIEWS */
+.grid{display:grid;gap:16px}
+.grid-faculties{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.grid-depts{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.grid-levels{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.grid-semesters{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--card-border);border-radius:14px;padding:24px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--sky),var(--gold));opacity:0;transition:opacity 0.2s}
+.card:hover{border-color:var(--sky);background:rgba(27,155,209,0.06);transform:translateY(-2px)}
+.card:hover::before{opacity:1}
+.card-icon{font-size:32px;margin-bottom:12px;display:block}
+.card-name{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--white);margin-bottom:6px}
+.card-sub{font-size:12px;color:var(--grey)}
+.card-arrow{position:absolute;right:20px;top:50%;transform:translateY(-50%);color:var(--sky);font-size:18px;opacity:0;transition:opacity 0.2s,right 0.2s}
+.card:hover .card-arrow{opacity:1;right:16px}
+
+/* PAST QUESTION CARDS */
+.pq-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.pq-card{background:var(--card);border:1px solid var(--card-border);border-radius:14px;overflow:hidden;transition:all 0.2s;display:flex;flex-direction:column}
+.pq-card:hover{border-color:var(--sky);transform:translateY(-2px)}
+.pq-thumb{background:linear-gradient(135deg,var(--navy3),var(--navy2));height:140px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-bottom:1px solid var(--card-border)}
+.pq-thumb-icon{font-size:56px;opacity:0.5}
+.pq-thumb-type{position:absolute;top:10px;right:10px;background:rgba(27,155,209,0.25);color:var(--sky);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:0.05em}
+.pq-thumb img{width:100%;height:100%;object-fit:cover}
+.pq-info{padding:16px;flex:1;display:flex;flex-direction:column;gap:6px}
+.pq-code{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.08em}
+.pq-title{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;color:var(--white);line-height:1.4}
+.pq-meta{font-size:11px;color:var(--grey);margin-top:2px}
+.pq-actions{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--card-border);background:rgba(255,255,255,0.015)}
+.btn-view{flex:1;background:var(--sky);color:#fff;border:none;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-view:hover{background:var(--sky2)}
+.btn-dl{background:rgba(212,160,23,0.15);color:var(--gold);border:1px solid rgba(212,160,23,0.3);border-radius:8px;padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;text-decoration:none;display:flex;align-items:center;justify-content:center}
+.btn-dl:hover{background:rgba(212,160,23,0.25)}
+
+/* SECTION HEADER */
+.section-header{margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--white)}
+.section-count{font-size:13px;color:var(--grey);background:rgba(255,255,255,0.05);padding:4px 12px;border-radius:20px}
+
+/* EMPTY / LOADING */
+.empty{text-align:center;padding:60px 20px;color:var(--grey)}
+.empty-icon{font-size:48px;margin-bottom:16px;opacity:0.4}
+.empty p{font-size:15px}
+.loading{text-align:center;padding:60px 20px}
+.spinner{width:36px;height:36px;border:3px solid var(--card-border);border-top-color:var(--sky);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* SEARCH RESULTS */
+.search-results-header{margin-bottom:16px;font-size:14px;color:var(--grey)}
+.search-results-header span{color:var(--white);font-weight:600}
+.highlight{color:var(--gold);font-weight:700}
+
+/* BACK BUTTON in content */
+.back-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border:1px solid var(--card-border);border-radius:10px;padding:8px 16px;color:var(--grey2);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;margin-bottom:24px}
+.back-btn:hover{border-color:var(--sky);color:var(--sky)}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy2);border:1px solid var(--card-border);border-radius:12px;padding:14px 20px;font-size:14px;color:var(--white);z-index:9999;opacity:0;transform:translateY(10px);transition:all 0.3s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+
+@media(max-width:600px){
+  .grid-faculties,.grid-depts{grid-template-columns:1fr}
+  .grid-levels,.grid-semesters{grid-template-columns:1fr 1fr}
+  .pq-grid{grid-template-columns:1fr}
+  .page-hero{padding:88px 5% 28px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="nav-left">
+    <div class="nav-logo">
+      <img src="logo.png" alt="CACYOF" onerror="this.style.display='none'"/>
+    </div>
+    <span class="nav-brand">CACYOF TPI Study Hub</span>
+  </div>
+  <button class="nav-back" onclick="window.location.href='index.html'">
+    ← Home
+  </button>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <h1>📚 Past Questions</h1>
+  <p>Browse by faculty, department, level and semester — or search directly by course code or title.</p>
+</div>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search by course code or title (e.g. MTH 101, Mathematics)…" oninput="handleSearch(this.value)"/>
+    <button class="search-clear" id="clearBtn" onclick="clearSearch()">✕</button>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb" id="breadcrumb">
+  <span class="crumb active" onclick="goTo('faculties')">All Faculties</span>
+</div>
+
+<!-- CONTENT -->
+<div class="content" id="content">
+  <div class="loading"><div class="spinner"></div><p style="color:var(--grey);font-size:14px">Loading faculties…</p></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const SUPABASE_URL = 'https://srlyoxfdaggwynnlfghr.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNybHlveGZkYWdnd3lubmxmZ2hyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5ODAwMDYsImV4cCI6MjA5NzU1NjAwNn0.NSQ_ZpSCgOiAiU0eplDMRjftoheIXLT42ui_5w_m6bU';
+
+// ─── STATE ───────────────────────────────────────────────────
+let state = {
+  view: 'faculties',   // faculties | departments | levels | semesters | questions | search
+  faculty: null,
+  department: null,
+  level: null,
+  semester: null,
+  allPQ: null          // cached for search
+};
+
+// ─── API ─────────────────────────────────────────────────────
+async function sbFetch(table, query = '') {
+  const url = `${SUPABASE_URL}/rest/v1/${table}?${query}`;
+  const res = await fetch(url, {
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json'
+    }
+  });
+  if (!res.ok) return [];
+  return res.json();
+}
+
+// ─── UTILS ───────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function fileExt(url) {
+  if (!url) return 'FILE';
+  const m = url.match(/\.([a-zA-Z0-9]+)(\?|$)/);
+  return m ? m[1].toUpperCase() : 'FILE';
+}
+
+function isImage(url) {
+  return /\.(jpg|jpeg|png|gif|webp)(\?|$)/i.test(url || '');
+}
+
+function isPDF(url) {
+  return /\.pdf(\?|$)/i.test(url || '');
+}
+
+function thumbHTML(pq) {
+  const url = pq.file_url;
+  const ext = fileExt(url);
+  if (isImage(url)) {
+    return `<img src="${url}" alt="preview" onerror="this.parentElement.innerHTML='<span class=pq-thumb-icon>📄</span>'"/>`;
+  }
+  const icons = { PDF: '📄', DOCX: '📝', DOC: '📝', XLSX: '📊', XLS: '📊', PNG: '🖼️', JPG: '🖼️' };
+  return `<span class="pq-thumb-icon">${icons[ext] || '📁'}</span>`;
+}
+
+function parseCourse(pq) {
+  // file_name format: "CODE - TITLE"
+  const raw = pq.file_name || '';
+  // Support both "CODE - TITLE" and just "TITLE"
+  const dashIdx = raw.indexOf(' - ');
+  let code = '', title = raw;
+  if (dashIdx > -1) {
+    code = raw.substring(0, dashIdx).trim();
+    title = raw.substring(dashIdx + 3).trim();
+  }
+  return { code, title };
+}
+
+function parseCourseId(pq) {
+  // course_id format: "deptId-levelId-semId" (strings like UUIDs separated by dashes... 
+  // actually it's stored as "${dept}-${level}-${sem}" where dept/level/sem are UUIDs)
+  return pq.course_id || '';
+}
+
+// ─── SEARCH ──────────────────────────────────────────────────
+async function handleSearch(val) {
+  const clearBtn = document.getElementById('clearBtn');
+  clearBtn.classList.toggle('show', val.length > 0);
+
+  if (val.length < 2) {
+    if (val.length === 0) {
+      // Restore previous view
+      if (state.view === 'search') {
+        state.view = 'faculties';
+        renderFaculties();
+      }
+    }
+    return;
+  }
+
+  // Cache all PQ if not done
+  if (!state.allPQ) {
+    document.getElementById('content').innerHTML = '<div class="loading"><div class="spinner"></div><p style="color:var(--grey);font-size:14px">Searching…</p></div>';
+    state.allPQ = await sbFetch('past_questions', 'select=*');
+  }
+
+  const q = val.toLowerCase().trim();
+  const results = state.allPQ.filter(pq => {
+    const { code, title } = parseCourse(pq);
+    return code.toLowerCase().includes(q) || title.toLowerCase().includes(q);
+  });
+
+  state.view = 'search';
+  renderSearchResults(results, val);
+  updateBreadcrumb();
+}
+
+function clearSearch() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('clearBtn').classList.remove('show');
+  state.view = 'faculties';
+  renderFaculties();
+  updateBreadcrumb();
+}
+
+function renderSearchResults(results, query) {
+  const content = document.getElementById('content');
+  if (results.length === 0) {
+    content.innerHTML = `
+      <div class="search-results-header">Showing results for <span>"${escHTML(query)}"</span></div>
+      <div class="empty"><div class="empty-icon">🔍</div><p>No past questions match that search.<br>Try a different course code or title.</p></div>`;
+    return;
+  }
+  content.innerHTML = `
+    <div class="search-results-header">Found <span>${results.length}</span> result${results.length !== 1 ? 's' : ''} for <span>"${escHTML(query)}"</span></div>
+    <div class="pq-grid">${results.map(pq => pqCardHTML(pq, query)).join('')}</div>`;
+}
+
+function escHTML(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── NAVIGATION ──────────────────────────────────────────────
+function goTo(view, data = {}) {
+  if (view === 'faculties') {
+    state = { view: 'faculties', faculty: null, department: null, level: null, semester: null, allPQ: state.allPQ };
+    renderFaculties();
+  } else if (view === 'departments') {
+    state.view = 'departments';
+    state.faculty = data.faculty || state.faculty;
+    state.department = null; state.level = null; state.semester = null;
+    renderDepartments();
+  } else if (view === 'levels') {
+    state.view = 'levels';
+    state.department = data.department || state.department;
+    state.level = null; state.semester = null;
+    renderLevels();
+  } else if (view === 'semesters') {
+    state.view = 'semesters';
+    state.level = data.level || state.level;
+    state.semester = null;
+    renderSemesters();
+  } else if (view === 'questions') {
+    state.view = 'questions';
+    state.semester = data.semester || state.semester;
+    renderQuestions();
+  }
+  updateBreadcrumb();
+}
+
+function updateBreadcrumb() {
+  const bc = document.getElementById('breadcrumb');
+  const parts = [];
+
+  const add = (label, action, active = false) => {
+    parts.push(`<span class="crumb${active ? ' active' : ''}" onclick="${action}">${label}</span>`);
+  };
+  const sep = () => parts.push('<span class="crumb-sep">›</span>');
+
+  if (state.view === 'search') {
+    add('All Faculties', "goTo('faculties')");
+    sep();
+    add('Search Results', '', true);
+  } else {
+    add('All Faculties', "goTo('faculties')", state.view === 'faculties');
+    if (state.faculty && state.view !== 'faculties') {
+      sep();
+      add(state.faculty.name, "goTo('departments')", state.view === 'departments');
+    }
+    if (state.department && !['faculties','departments'].includes(state.view)) {
+      sep();
+      add(state.department.name, "goTo('levels')", state.view === 'levels');
+    }
+    if (state.level && !['faculties','departments','levels'].includes(state.view)) {
+      sep();
+      add(state.level.name, "goTo('semesters')", state.view === 'semesters');
+    }
+    if (state.semester && state.view === 'questions') {
+      sep();
+      add(state.semester.name, '', true);
+    }
+  }
+
+  bc.innerHTML = parts.join('');
+}
+
+// ─── FACULTIES ───────────────────────────────────────────────
+const FACULTY_ICONS = ['🏢','⚙️','🌿','💰','🔬','📚'];
+async function renderFaculties() {
+  const content = document.getElementById('content');
+  content.innerHTML = '<div class="loading"><div class="spinner"></div><p style="color:var(--grey);font-size:14px">Loading…</p></div>';
+  const faculties = await sbFetch('faculties', 'select=id,name,description&order=name.asc');
+  if (!faculties.length) {
+    content.innerHTML = '<div class="empty"><div class="empty-icon">🏛️</div><p>No faculties found.</p></div>';
+    return;
+  }
+  content.innerHTML = `
+    <div class="section-header">
+      <div class="section-title">Choose a Faculty</div>
+      <div class="section-count">${faculties.length} faculties</div>
+    </div>
+    <div class="grid grid-faculties">
+      ${faculties.map((f, i) => `
+        <div class="card" onclick="goTo('departments',{faculty:${JSON.stringify(f).replace(/"/g,'&quot;')}})">
+          <span class="card-icon">${FACULTY_ICONS[i % FACULTY_ICONS.length]}</span>
+          <div class="card-name">${escHTML(f.name)}</div>
+          ${f.description ? `<div class="card-sub">${escHTML(f.description)}</div>` : ''}
+          <span class="card-arrow">›</span>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ─── DEPARTMENTS ─────────────────────────────────────────────
+async function renderDepartments() {
+  const content = document.getElementById('content');
+  content.innerHTML = '<div class="loading"><div class="spinner"></div><p style="color:var(--grey);font-size:14px">Loading departments…</p></div>';
+  const depts = await sbFetch('departments', `select=id,name&faculty_id=eq.${state.faculty.id}&order=name.asc`);
+  if (!depts.length) {
+    content.innerHTML = `<button class="back-btn" onclick="goTo('faculties')">← Faculties</button><div class="empty"><div class="empty-icon">🏫</div><p>No departments in this faculty yet.</p></div>`;
+    return;
+  }
+  content.innerHTML = `
+    <button class="back-btn" onclick="goTo('faculties')">← All Faculties</button>
+    <div class="section-header">
+      <div class="section-title">${escHTML(state.faculty.name)}</div>
+      <div class="section-count">${depts.length} departments</div>
+    </div>
+    <div class="grid grid-depts">
+      ${depts.map(d => `
+        <div class="card" onclick="goTo('levels',{department:${JSON.stringify(d).replace(/"/g,'&quot;')}})">
+          <span class="card-icon">📂</span>
+          <div class="card-name">${escHTML(d.name)}</div>
+          <span class="card-arrow">›</span>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ─── LEVELS ──────────────────────────────────────────────────
+async function renderLevels() {
+  const content = document.getElementById('content');
+  content.innerHTML = '<div class="loading"><div class="spinner"></div><p style="color:var(--grey);font-size:14px">Loading…</p></div>';
+  const levels = await sbFetch('levels', 'select=id,name,level_order&order=level_order.asc');
+  if (!levels.length) {
+    content.innerHTML = `<button class="back-btn" onclick="goTo('departments')">← Departments</button><div class="empty"><div class="empty-icon">📋</div><p>No levels configured yet.</p></div>`;
+    return;
+  }
+  const LEVEL_ICONS = { 'ND1': '1️⃣', 'ND2': '2️⃣', 'HND1': '3️⃣', 'HND2': '4️⃣' };
+  content.innerHTML = `
+    <button class="back-btn" onclick="goTo('departments')">← ${escHTML(state.faculty.name)}</button>
+    <div class="section-header">
+      <div class="section-title">${escHTML(state.department.name)}</div>
+      <div class="section-count">Select Level</div>
+    </div>
+    <div class="grid grid-levels">
+      ${levels.map(l => `
+        <div class="card" onclick="goTo('semesters',{level:${JSON.stringify(l).replace(/"/g,'&quot;')}})">
+          <span class="card-icon">${LEVEL_ICONS[l.name] || '📚'}</span>
+          <div class="card-name">${escHTML(l.name)}</div>
+          <span class="card-arrow">›</span>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ─── SEMESTERS ───────────────────────────────────────────────
+async function renderSemesters() {
+  const content = document.getElementById('content');
+  content.innerHTML = '<div class="loading"><div class="spinner"></div><p style="color:var(--grey);font-size:14px">Loading…</p></div>';
+  const sems = await sbFetch('semesters', 'select=id,name,semester_order&order=semester_order.asc');
+  if (!sems.length) {
+    content.innerHTML = `<button class="back-btn" onclick="goTo('levels')">← Levels</button><div class="empty"><div class="empty-icon">📅</div><p>No semesters configured yet.</p></div>`;
+    return;
+  }
+  const SEM_ICONS = ['1️⃣', '2️⃣', '3️⃣'];
+  content.innerHTML = `
+    <button class="back-btn" onclick="goTo('levels')">← ${escHTML(state.department.name)} • ${escHTML(state.level.name)}</button>
+    <div class="section-header">
+      <div class="section-title">${escHTML(state.level.name)} — ${escHTML(state.department.name)}</div>
+      <div class="section-count">Select Semester</div>
+    </div>
+    <div class="grid grid-semesters">
+      ${sems.map((s, i) => `
+        <div class="card" onclick="goTo('questions',{semester:${JSON.stringify(s).replace(/"/g,'&quot;')}})">
+          <span class="card-icon">${SEM_ICONS[i] || '📅'}</span>
+          <div class="card-name">${escHTML(s.name)}</div>
+          <span class="card-arrow">›</span>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ─── PAST QUESTIONS ──────────────────────────────────────────
+async function renderQuestions() {
+  const content = document.getElementById('content');
+  content.innerHTML = '<div class="loading"><div class="spinner"></div><p style="color:var(--grey);font-size:14px">Loading past questions…</p></div>';
+
+  // The course_id in DB is stored as "deptId-levelId-semId"
+  const courseId = `${state.department.id}-${state.level.id}-${state.semester.id}`;
+  const pqs = await sbFetch('past_questions', `select=*&course_id=eq.${encodeURIComponent(courseId)}&order=uploaded_date.desc`);
+
+  const backLabel = `${escHTML(state.department.name)} • ${escHTML(state.level.name)} • ${escHTML(state.semester.name)}`;
+
+  if (!pqs.length) {
+    content.innerHTML = `
+      <button class="back-btn" onclick="goTo('semesters')">← ${backLabel}</button>
+      <div class="empty">
+        <div class="empty-icon">📭</div>
+        <p>No past questions uploaded yet for<br><strong>${backLabel}</strong></p>
+      </div>`;
+    return;
+  }
+
+  content.innerHTML = `
+    <button class="back-btn" onclick="goTo('semesters')">← ${backLabel}</button>
+    <div class="section-header">
+      <div class="section-title">${escHTML(state.semester.name)} Past Questions</div>
+      <div class="section-count">${pqs.length} question${pqs.length !== 1 ? 's' : ''}</div>
+    </div>
+    <div class="pq-grid">${pqs.map(pq => pqCardHTML(pq)).join('')}</div>`;
+
+  // Also cache for search
+  if (!state.allPQ) state.allPQ = null;
+}
+
+// ─── PQ CARD HTML ────────────────────────────────────────────
+function pqCardHTML(pq, highlightQuery = '') {
+  const { code, title } = parseCourse(pq);
+  const ext = fileExt(pq.file_url);
+  const displayCode = highlightQuery ? highlight(code, highlightQuery) : escHTML(code);
+  const displayTitle = highlightQuery ? highlight(title, highlightQuery) : escHTML(title);
+  const isGDrive = (pq.file_url || '').includes('drive.google.com') || (pq.file_url || '').includes('docs.google.com');
+
+  // View URL — for PDFs use Google Docs viewer on mobile-friendly
+  const viewUrl = isPDF(pq.file_url) && !isGDrive
+    ? `https://docs.google.com/viewer?url=${encodeURIComponent(pq.file_url)}&embedded=true`
+    : pq.file_url;
+
+  return `
+    <div class="pq-card">
+      <div class="pq-thumb">
+        ${thumbHTML(pq)}
+        <span class="pq-thumb-type">${isGDrive ? 'DRIVE' : ext}</span>
+      </div>
+      <div class="pq-info">
+        ${code ? `<div class="pq-code">${displayCode}</div>` : ''}
+        <div class="pq-title">${displayTitle || 'Untitled'}</div>
+        ${pq.uploaded_by ? `<div class="pq-meta">Uploaded by ${escHTML(pq.uploaded_by)}</div>` : ''}
+      </div>
+      <div class="pq-actions">
+        <a href="${escHTML(viewUrl || '#')}" target="_blank" class="btn-view" ${!pq.file_url ? 'style="pointer-events:none;opacity:0.4"' : ''}>
+          👁️ View
+        </a>
+        <a href="${escHTML(pq.file_url || '#')}" download target="_blank" class="btn-dl" title="Download" ${!pq.file_url ? 'style="pointer-events:none;opacity:0.4"' : ''}>
+          ⬇
+        </a>
+      </div>
+    </div>`;
+}
+
+function highlight(text, query) {
+  if (!query || !text) return escHTML(text);
+  const escaped = escHTML(text);
+  const escapedQ = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return escaped.replace(new RegExp(`(${escapedQ})`, 'gi'), '<mark class="highlight">$1</mark>');
+}
+
+// ─── INIT ────────────────────────────────────────────────────
+renderFaculties();
+</script>
+</body>
+</html>
